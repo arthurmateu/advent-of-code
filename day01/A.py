@@ -1,5 +1,5 @@
 l1, l2, res = [], [], []
-with open("puzzle_01.txt") as file:
+with open("puzzle.txt") as file:
     for line in file:
         n1, n2 = (int(x) for x in line.split())
         l1.append(n1)
