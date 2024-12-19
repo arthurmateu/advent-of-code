@@ -1,19 +1,26 @@
 # My first thought is just make a backtracking solution
-towel_patterns, res = [], 0
+import functools
+
+towel_patterns, res = [], -1 # to not count the first newline
 check = True
 
-
+@functools.cache
 def possible(towel):
-    # check for patterns that are prefix to towel
-    # remove prefix from towel
-    # continue until you have no towel left
-    return True if towel else False
+    if towel == '': 
+        return True
+
+    for pattern in towel_patterns:
+        if towel.startswith(pattern) and possible(towel[len(pattern):]): 
+            return True
+
+    return False
 
 
 for line in open("puzzle.txt"):
     if check:
-        towel_patterns.extend(line.split(', '))
-        towel_patterns[-1] = towel_patterns[-1][:-1] # remove '\n'
+        towel_patterns.extend(line.strip().split(', '))
         check = False
-    elif possible(line.split()):
-        res += 1
+    elif possible(line.strip()):
+            res += 1
+
+print(res)
